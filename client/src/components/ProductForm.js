@@ -18,6 +18,8 @@ export default props => {
     };
 
     return(
+        <>
+        <h1>Create a product</h1>
         <form onSubmit={ onSubmitHandler }>
             <p>
                 <label>Title: </label>
@@ -33,6 +35,7 @@ export default props => {
             </p>
             <input type='submit'/>
         </form>
+        </>
     )
 };
 
