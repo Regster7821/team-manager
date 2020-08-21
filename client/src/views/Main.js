@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProductForm from '../components/ProductForm';
-import ProductList from '../components/ProductList';
+import AuthorForm from '../components/AuthorForm';
+import AuthorList from '../components/AuthorList';
 
 export default () => {
-    const [products, setProducts] = useState([]);
+    const [authors, setAuthors] = useState([]);
     const [loaded, setLoaded] = useState(false);
     useEffect(() => {
-        axios.get('http://localhost:8000/api/products')
+        axios.get('http://localhost:8000/api/authors')
             .then(res=>{
-                setProducts(res.data);
+                setAuthors(res.data);
                 setLoaded(true);
             })
             .catch(err=>console.log('Error: ', err))
     }, [])
-    const removeFromDom = productId => {
-        setProducts(products.filter(product => product._id != productId));
+    const createAuthor = author => {
+        axios.post('http://localhost:8000/api/authors', author)
+            .then(res=>{
+                setAuthors([...authors, res.data]);
+            })
+    }
+    const removeFromDom = authorId => {
+        setAuthors(authors.filter(author => author._id !== authorId));
     };
     return(
-        <>
-            <ProductForm />
-            {loaded && <ProductList products={products} removeFromDom={removeFromDom}/>}
-        </>
+        <div className='main-div'>
+            <AuthorForm onSubmitProp={createAuthor} initialName='' initialQuote=''/>
+            {loaded && <AuthorList authors={authors} removeFromDom={removeFromDom}/>}
+        </div>
     );
 };
+
+
+// Updated all the way to Main.js   -   need to update Detail and Update

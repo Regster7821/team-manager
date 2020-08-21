@@ -1,12 +1,30 @@
 *{
   font-family: sans-serif;
-  text-align: center
+  text-align: center;
 };
 
 .delete-button{
-  display: inline-block;
+  background-color: #4050b5;
+  color: white;
 };
 
 .product{
   display: inline-block;
+}
+
+.main-div{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+.AuthorList{
+  margin-top: 10px;
+}
+
+.authors{
+  text-decoration: none;
+  color: black;
+  margin-right: 10px;
 }
