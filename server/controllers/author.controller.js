@@ -7,8 +7,20 @@ module.exports.createAuthor = (request, response) => {
         quote
     })
         .then(author => response.json(author))
-        .catch(err => response.json(err));
+        .catch(err => response.status(400).json(err));
 };
+
+// module.exports = {
+//     create: (request, response) => {
+//         const { name, quote } = request.body;
+//         Author.create({
+//             name,
+//             quote
+//         })
+//             .then(author => response.json(author))
+//             .catch(err => response.status(400).json(err))
+//     }
+// };
 
 module.exports.getAllAuthors = (request, response) => {
     Author.find({})
