@@ -20,15 +20,16 @@ const styles = {
 }
 
 
-export default function AuthorForm(props) {
-    const { initialName, initialQuote, onSubmitProp } = props;
+export default function PlayerForm(props) {
+    const { initialName, initialPosition, initialStatus, onSubmitProp } = props;
     const [name, setName] = useState(initialName);
-    const [quote, setQuote] = useState(initialQuote);
+    const [position, setPosition] = useState(initialPosition);
+    const [status, setStatus] = useState(initialStatus);
     // const [errors, setErrors] = useState([]);
 
     const onSubmitHandler = e => {
         e.preventDefault();
-        onSubmitProp({name, quote})
+        onSubmitProp({name, position, status})
 
         // const x = document.forms['name'].value;
         // const y = document.forms['quote'].value;
@@ -56,17 +57,21 @@ export default function AuthorForm(props) {
     };
 
     return(
-        <div className='author-form'>
+        <div className='player-form'>
         <Paper elevation={3} style={styles.paper}>
-            <h1>Create an author</h1>
+            <h1>Create a player</h1>
             <form onSubmit={ onSubmitHandler }>
                 <FormControl variant='outlined' style={styles.input}>
                     <InputLabel>Name</InputLabel>
                     <OutlinedInput type="text" name='name' onChange = { e => setName(e.target.value) }/>
                 </FormControl>
                 <FormControl variant='outlined' style={styles.input}>
-                    <InputLabel>Quote</InputLabel>
-                    <OutlinedInput type="text" name='quote' onChange = { e => setQuote(e.target.value) }/>
+                    <InputLabel>Position</InputLabel>
+                    <OutlinedInput type="text" name='position' onChange = { e => setPosition(e.target.value) }/>
+                </FormControl>
+                <FormControl variant='outlined' style={styles.input}>
+                    <InputLabel>Status</InputLabel>
+                    <OutlinedInput type="text" name='status' onChange = { e => setStatus(e.target.value) }/>
                 </FormControl><br/>
                 <Button type="submit" variant="contained" color="primary">
                         Submit

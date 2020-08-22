@@ -2,29 +2,30 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from '@reach/router';
 export default props => {
-    const [author, setAuthor] = useState({})
-    const [authors, setAuthors] = useState([]);
+    const [player, setPlayer] = useState({})
+    const [players, setPlayers] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:8000/api/authors/" + props.id)
-            .then(res => setAuthor({
+        axios.get("http://localhost:8000/api/players/" + props.id)
+            .then(res => setPlayer({
                 ...res.data
             }))
     }, [])
-    const removeFromDom = authorId => {
-        setAuthors(authors.filter(author => author._id !== authorId));
+    const removeFromDom = playerId => {
+        setPlayers(players.filter(player => player._id !== playerId));
     };
-    const deleteAuthor = (authorId) => {
-        axios.delete('http://localhost:8000/api/authors/' + authorId)
-            .then(res => {removeFromDom(authorId)})
+    const deletePlayer = (playerId) => {
+        axios.delete('http://localhost:8000/api/players/' + playerId)
+            .then(res => {removeFromDom(playerId)})
     };
     return (
         <div>
-            <h1>Author Details:</h1>
-            <p>Name: {author.name}</p>
-            <p>Quote: {author.quote}</p>
-            <button><Link to={"/authors/" + author._id + "/edit"}>Edit</Link></button><br/><br/>
-            <button className='delete-author' onClick={(e)=>{deleteAuthor(author._id)}}><Link to={ '/authors' }>Delete</Link></button><br/><br/>
-            <button><Link to={ '/authors' }>Home</Link></button>
+            <h1>Player Details:</h1>
+            <p>Name: {player.name}</p>
+            <p>Position: {player.position}</p>
+            <p>Status: {player.status}</p>
+            <button><Link to={"/players/" + player._id + "/edit"}>Edit</Link></button><br/><br/>
+            <button className='delete-player' onClick={(e)=>{deletePlayer(player._id)}}><Link to={ '/players' }>Delete</Link></button><br/><br/>
+            <button><Link to={ '/players' }>Home</Link></button>
         </div>
     )
 }

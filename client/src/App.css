@@ -19,13 +19,24 @@
   padding-top: 20px;
 }
 
-.AuthorList{
+.PlayerList{
   margin-top: 10px;
 }
 
-.authors{
+.players{
   text-decoration: none;
   color: black;
-  margin-right: 10px;
 }
 
+.navbar-item{
+  color: black;
+  font-size: x-large;
+}
+
+.main-navbar{
+  font-size: x-large;
+}
+
+.player-form{
+  margin-top: 10px;
+}

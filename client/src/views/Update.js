@@ -4,26 +4,29 @@ import { Link } from '@reach/router';
 export default props => {
     const { id } = props;
     const [name, setName] = useState();
-    const [quote, setQuote] = useState();
+    const [position, setPosition] = useState();
+    const [status, setStatus] = useState();
     useEffect(() => {
-        axios.get('http://localhost:8000/api/authors/' + id)
+        axios.get('http://localhost:8000/api/players/' + id)
             .then(res => {
                 setName(res.data.name);
-                setQuote(res.data.quote);
+                setPosition(res.data.position);
+                setStatus(res.data.status);
             })
     }, [])
-    const updateAuthor = e => {
+    const updatePlayer = e => {
         e.preventDefault();
-        axios.put('http://localhost:8000/api/authors/' + id + '/edit', {
+        axios.put('http://localhost:8000/api/players/' + id + '/edit', {
             name,
-            quote
+            position,
+            status
         })
             .then(res => console.log(res));
     }
     return (
         <div>
-            <h1>Update an Author</h1>
-            <form onSubmit={updateAuthor}>
+            <h1>Update a Player</h1>
+            <form onSubmit={updatePlayer}>
                 <p>
                     <label>Name</label><br />
                     <input type="text" 
@@ -32,14 +35,21 @@ export default props => {
                     onChange={(e) => { setName(e.target.value) }} />
                 </p>
                 <p>
-                    <label>Quote</label><br />
+                    <label>Position</label><br />
                     <input type='text'
-                    name="quote"
-                    value={quote} 
-                    onChange={(e) => { setQuote(e.target.value) }} />
+                    name="position"
+                    value={position} 
+                    onChange={(e) => { setPosition(e.target.value) }} />
+                </p>
+                <p>
+                    <label>Status</label><br />
+                    <input type='text'
+                    name="status"
+                    value={status} 
+                    onChange={(e) => { setStatus(e.target.value) }} />
                 </p>
                 <input type="submit"></input><br /><br />
-                <button><Link to={ '/authors' }>Home</Link></button>
+                <button><Link to={ '/players' }>Home</Link></button>
             </form>
         </div>
     )

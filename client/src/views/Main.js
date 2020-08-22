@@ -1,32 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import AuthorForm from '../components/AuthorForm';
-import AuthorList from '../components/AuthorList';
+import { Link } from '@reach/router';
+// import PlayerForm from '../components/PlayerForm';
+import PlayerList from '../components/PlayerList';
+import MainNavbar from '../components/MainNavbar';
 
 export default () => {
-    const [authors, setAuthors] = useState([]);
+    const [players, setPlayers] = useState([]);
     const [loaded, setLoaded] = useState(false);
     useEffect(() => {
-        axios.get('http://localhost:8000/api/authors')
+        axios.get('http://localhost:8000/api/players')
             .then(res=>{
-                setAuthors(res.data);
+                setPlayers(res.data);
                 setLoaded(true);
             })
             .catch(err=>console.log('Error: ', err))
     }, [])
-    const createAuthor = author => {
-        axios.post('http://localhost:8000/api/authors', author)
-            .then(res=>{
-                setAuthors([...authors, res.data]);
-            })
-    }
-    const removeFromDom = authorId => {
-        setAuthors(authors.filter(author => author._id !== authorId));
+    // const createPlayer = player => {
+    //     axios.post('http://localhost:8000/api/players', player)
+    //         .then(res=>{
+    //             setPlayers([...players, res.data]);
+    //         })
+    // }
+    const removeFromDom = playerId => {
+        setPlayers(players.filter(player => player._id !== playerId));
     };
     return(
         <div className='main-div'>
-            <AuthorForm onSubmitProp={createAuthor} initialName='' initialQuote=''/>
-            {loaded && <AuthorList authors={authors} removeFromDom={removeFromDom}/>}
+            <MainNavbar/>
+            {/* <PlayerForm onSubmitProp={createPlayer} initialName='' initialPosition='' initialStatus=''/> */}
+            {loaded && <PlayerList players={players} removeFromDom={removeFromDom}/>}
         </div>
     );
 };
